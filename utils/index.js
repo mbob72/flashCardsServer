@@ -1,4 +1,4 @@
-const {readRowDict} = require("./readFile");
+const {readRowDict, searchFileByFirstNum} = require("./readFile");
 
 const enLength = 21
 const ruLength = 15
@@ -181,7 +181,8 @@ function makePdfData({viewModel}) {
 }
 
 module.exports = {
-    makePdfJson: async function makePdfJson(start, end) {
+    makePdfJson: async function makePdfJson(start) {
+        const end = await searchFileByFirstNum(start)
         const text = await readRowDict(`${start}-${end}.txt`)
         const {model, start: _start} = makeModel(text, start)
         console.log('the model is:', model, start, end)

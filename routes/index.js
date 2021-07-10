@@ -4,8 +4,12 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  // res.render('index', { title: 'Express' });
-  const forJson = await makePdfJson('21', '40')
+  console.log(req.query.start)
+  let forJson = { error: 'error'}
+  try {
+
+    forJson = await makePdfJson(req.query.start)
+  } catch (e) { console.log(e)}
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(forJson, null, 3));
 });
